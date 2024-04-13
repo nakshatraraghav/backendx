@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/nakshatraraghav/notesgen/lib"
 )
 
@@ -19,12 +20,14 @@ func NewAPIServer() *APIServer {
 }
 
 func (api *APIServer) StartServer() error {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	router := chi.NewRouter()
+
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
 	})
 
 	log.Info().Msg("server started on localhost:3000")
 
-	return http.ListenAndServe(api.addr, nil)
+	return http.ListenAndServe(api.addr, router)
 }
