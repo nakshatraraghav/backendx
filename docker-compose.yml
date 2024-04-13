@@ -1,0 +1,24 @@
+services:
+  notsgen:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: notesgen_backend
+    ports:
+      - "3000:3000"
+    networks:
+      - dockyard
+
+  prometheus:
+    image: prom/prometheus
+    container_name: notesgen_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus-config.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - dockyard
+
+networks:
+  dockyard:
+    driver: bridge

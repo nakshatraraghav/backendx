@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/nakshatraraghav/notesgen/lib"
 	"github.com/nakshatraraghav/notesgen/middlewares"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var log = lib.GetLogger()
@@ -30,11 +31,7 @@ func (api *APIServer) StartServer() error {
 	router := chi.NewRouter()
 
 	api.atttachMiddlewares(router)
-
-	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
-	})
+	api.serverPrometheusMetrics(router)
 
 	log.Info().Msg("server started on localhost" + lib.ENV.Addr)
 
@@ -43,4 +40,8 @@ func (api *APIServer) StartServer() error {
 
 func (api *APIServer) atttachMiddlewares(router *chi.Mux) {
 	router.Use(middlewares.LogRequests)
+}
+
+func (api *APIServer) serverPrometheusMetrics(router *chi.Mux) {
+	router.Get("/metrics", promhttp.Handler().ServeHTTP)
 }

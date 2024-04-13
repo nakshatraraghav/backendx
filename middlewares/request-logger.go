@@ -25,10 +25,8 @@ func LogRequests(next http.Handler) http.Handler {
 
 		wr := &wrappedWriter{w, http.StatusOK}
 
-		defer func() {
-			log.Info().Str("method", r.Method).Str("uri", r.URL.Path).Int("status", wr.statusCode).Str("duration", time.Since(start).String()).Send()
-		}()
-
 		next.ServeHTTP(wr, r)
+
+		log.Info().Str("method", r.Method).Str("uri", r.URL.Path).Int("status", wr.statusCode).Str("duration", time.Since(start).String()).Send()
 	})
 }
