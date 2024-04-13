@@ -1,9 +1,12 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/nakshatraraghav/notesgen/lib"
 )
+
+var log = lib.GetLogger()
 
 type APIServer struct {
 	addr string
@@ -21,7 +24,7 @@ func (api *APIServer) StartServer() error {
 		w.Write([]byte("OK"))
 	})
 
-	fmt.Println("server started on localhost:3000")
+	log.Info().Msg("server started on localhost:3000")
 
 	return http.ListenAndServe(api.addr, nil)
 }

@@ -1,16 +1,17 @@
 package main
 
 import (
-	"log"
-
 	"github.com/nakshatraraghav/notesgen/cmd/api"
+	"github.com/nakshatraraghav/notesgen/lib"
 )
+
+var log = lib.GetLogger()
 
 func main() {
 	server := api.NewAPIServer()
 
 	err := server.StartServer()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err)
 	}
 }
