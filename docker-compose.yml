@@ -1,11 +1,11 @@
 services:
-  notesgen:
+  backendx:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: notesgen_backend
+    container_name: backendx_backend
     volumes:
-      - "/home/combatrickshaw/logs/:/var/log/notesgen/"
+      - "/home/combatrickshaw/logs/:/var/log/backendx/"
     ports:
       - "3000:3000"
     networks:
@@ -13,7 +13,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: notesgen_prometheus
+    container_name: backendx_prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -21,11 +21,11 @@ services:
     networks:
       - dockyard
     depends_on:
-      - notesgen
+      - backendx
 
   grafana:
     image: grafana/grafana-oss
-    container_name: notesgen_grafana
+    container_name: backendx_grafana
     ports:
       - "3100:3000"
     networks:
@@ -35,7 +35,7 @@ services:
 
   loki:
     image: grafana/loki
-    container_name: notesgen_loki
+    container_name: backendx_loki
     ports:
       - "3200:3100"
     volumes:
@@ -45,7 +45,7 @@ services:
 
   promtail:
     image: grafana/promtail
-    container_name: notesgen_promtail
+    container_name: backendx_promtail
     volumes:
       - "./promtail-config.yml:/mnt/config/promtail-config.yaml"
       - "/home/combatrickshaw/logs/:/var/log/"

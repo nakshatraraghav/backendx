@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/nakshatraraghav/notesgen/lib"
+	"github.com/nakshatraraghav/backendx/lib"
 )
 
 var log = lib.GetLogger()

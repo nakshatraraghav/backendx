@@ -4,4 +4,4 @@ global:
 scrape_configs:
   - job_name: prometheus
     static_configs:
-      - targets: ["notesgen_backend:3000"]
+      - targets: ["backendx_backend:3000"]

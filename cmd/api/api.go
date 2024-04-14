@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/nakshatraraghav/notesgen/lib"
-	"github.com/nakshatraraghav/notesgen/middlewares"
+	"github.com/nakshatraraghav/backendx/lib"
+	"github.com/nakshatraraghav/backendx/middlewares"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 

@@ -15,13 +15,13 @@ var (
 
 func GetLogger() zerolog.Logger {
 	once.Do(func() {
-		path := filepath.Dir("/var/log/notesgen/")
+		path := filepath.Dir("/var/log/backendx/")
 		err := os.MkdirAll(path, 0755)
 		if err != nil {
 			panic(err)
 		}
 
-		file, err := os.OpenFile("/var/log/notesgen/notesgen.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+		file, err := os.OpenFile("/var/log/backendx/backendx.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 		if err != nil {
 			panic(err)
 		}

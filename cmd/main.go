@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/nakshatraraghav/notesgen/cmd/api"
-	"github.com/nakshatraraghav/notesgen/lib"
+	"github.com/nakshatraraghav/backendx/cmd/api"
+	"github.com/nakshatraraghav/backendx/lib"
 )
 
 var log = lib.GetLogger()

@@ -1,4 +1,4 @@
-module github.com/nakshatraraghav/notesgen
+module github.com/nakshatraraghav/backendx
 
 go 1.22.2
 
