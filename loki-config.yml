@@ -1,0 +1,60 @@
+# This is a configuration file for Loki, which is a horizontally-scalable, highly-available
+# log aggregation system. Let's break down the key components of this configuration:
+
+# Authentication: auth_enabled:
+# false indicates that authentication is disabled,
+# meaning that anyone can access Loki without needing to authenticate.
+auth_enabled: false
+
+# Server Configuration:
+# http_listen_port: 3100: Specifies the port on which Loki's HTTP server will listen for incoming requests.
+# grpc_listen_port: 9096: Specifies the port on which Loki's gRPC server will listen for incoming requests.
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+# Common Configuration:
+common:
+  # instance_addr: 127.0.0.1: The IP address Loki binds to.
+  instance_addr: 127.0.0.1
+  # path_prefix: /tmp/loki: Base directory for Loki's data and configuration.
+  path_prefix: /tmp/loki
+  # storage: Defines how logs are stored. In this case, it's configured to store logs on the filesystem.
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  # replication_factor: 1: Specifies the number of copies of each log chunk that Loki will store.
+  replication_factor: 1
+  # ring: Configuration related to the consistent hashing ring used for distributing log entries.
+  ring:
+    kvstore:
+      store: inmemory
+
+# query_range: Configuration related to query results caching
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+# Schema Configuration
+# Specifies how logs are stored, including the storage type (file system), index prefix, period, etc.
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+# Ruler Configuration: This section specifies the URL of Alertmanager,
+# which is used to send alerts based on log data processed by Loki
+ruler:
+  alertmanager_url: http://localhost:9093
+
+analytics:
+  reporting_enabled: false

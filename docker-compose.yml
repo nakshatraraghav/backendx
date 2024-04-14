@@ -33,6 +33,27 @@ services:
     depends_on:
       - prometheus
 
+  loki:
+    image: grafana/loki
+    container_name: notesgen_loki
+    ports:
+      - "3200:3100"
+    volumes:
+      - "./loki-config.yml:/mnt/config/loki-config.yaml"
+    networks:
+      - dockyard
+
+  promtail:
+    image: grafana/promtail
+    container_name: notesgen_promtail
+    volumes:
+      - "./promtail-config.yml:/mnt/config/promtail-config.yaml"
+      - "/home/combatrickshaw/logs/:/var/log/"
+    networks:
+      - dockyard
+    depends_on:
+      - loki
+
 networks:
   dockyard:
     driver: bridge
