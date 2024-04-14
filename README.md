@@ -95,8 +95,6 @@ Follow these steps to get started with your Go backend project based on this tem
    cd backendx
    ```
 
-````
-
 3. **Change the username**:
    Change the username the `docker-compose.yml` file to yout username
    or if you are on windows change volume path to a suitable path where
@@ -141,4 +139,3 @@ Contributions to this template are welcome! Feel free to open issues or pull req
 ## License
 
 This project template is licensed under the [MIT License](LICENSE).
-````
