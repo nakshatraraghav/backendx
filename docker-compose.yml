@@ -1,9 +1,11 @@
 services:
-  notsgen:
+  notesgen:
     build:
       context: ./
       dockerfile: Dockerfile
     container_name: notesgen_backend
+    volumes:
+      - "/home/combatrickshaw/logs/:/var/log/notesgen/"
     ports:
       - "3000:3000"
     networks:
@@ -18,6 +20,18 @@ services:
       - "./prometheus-config.yml:/etc/prometheus/prometheus.yml"
     networks:
       - dockyard
+    depends_on:
+      - notesgen
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: notesgen_grafana
+    ports:
+      - "3100:3000"
+    networks:
+      - dockyard
+    depends_on:
+      - prometheus
 
 networks:
   dockyard:
